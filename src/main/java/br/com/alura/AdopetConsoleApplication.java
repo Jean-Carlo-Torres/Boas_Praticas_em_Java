@@ -1,6 +1,7 @@
 package br.com.alura;
 
 import br.com.alura.client.ClientHttpConfiguration;
+import br.com.alura.command.*;
 import br.com.alura.service.AbrigoService;
 import br.com.alura.service.PetService;
 
@@ -10,6 +11,7 @@ public class AdopetConsoleApplication {
 
     public static void main(String[] args) {
 
+        CommandExecutor executor = new CommandExecutor();
         ClientHttpConfiguration client = new ClientHttpConfiguration();
         AbrigoService abrigoService = new AbrigoService(client);
         PetService  petService = new PetService(client);
@@ -30,16 +32,16 @@ public class AdopetConsoleApplication {
 
                 switch (opcaoEscolhida) {
                     case 1:
-                        abrigoService.listarAbrigos();
+                        executor.executeCommand(new ListarAbrigoCommand());
                         break;
                     case 2:
-                        abrigoService.cadastrarAbrigo();
+                        executor.executeCommand(new CadastrarAbrigoCommand());
                         break;
                     case 3:
-                        petService.listarPetsDoAbrigo();
+                        executor.executeCommand(new ListarPetsDoAbrigoCommand());
                         break;
                     case 4:
-                        petService.importarPetsDoAbrigo();
+                        executor.executeCommand(new ImportarPetsDoAbrigoCommand());
                         break;
                     case 5:
                         System.out.println("Finalizando o programa...");
